@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
+echo `date` > last-run-started
+
+python crfuchbot.py > last-output
+
+cd $DIR
+echo `date` > last-run-finished

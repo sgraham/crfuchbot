@@ -1,0 +1,14 @@
+{
+  "tcp": {
+    "listen": "127.0.0.1:12345"
+  },
+  "irc": {
+    "server": "irc.freenode.net:6697",
+    "tls": true,
+    "tls_skip_verify": false,
+    "nick": "crfuchbot",
+    "realname": "cr-fuchsia-bot",
+    "identify_pass": "",
+    "channels": ["#cr-fuch-test"]
+  }
+}
