@@ -5,6 +5,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 echo `date` > last-run-started
 
+git fetch origin
+git checkout origin/master
+
 python crfuchbot.py > last-output
 
 cd $DIR
