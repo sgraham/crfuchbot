@@ -20,6 +20,7 @@ def main():
   separator = uuid.uuid4().hex
   for repo in os.listdir(repo_root):
     repo_root = os.path.join(initial_dir, repo_root, repo)
+    print repo_root
     if not os.path.isdir(repo_root):
       continue
     os.chdir(repo_root)
@@ -52,11 +53,9 @@ def main():
       if 'fuchsia' in data.lower():
         popen = subprocess.Popen(['nc', '127.0.0.1', '12345'],
                                  stdin=subprocess.PIPE)
-        # TODO: repo root url hardcoded.
-        print 'sending to irc:', subject, author, commit
-        popen.communicate(
-            '%s %s https://chromium.googlesource.com/chromium/src/+/%s\n' % (
-                subject, author, commit))
+        view_base = git('config', '--get', 'remote.origin.url')
+        print 'sending to irc:', subject, author, view_base, commit
+        popen.communicate('%s %s %s/+/%s' % (subject, author, view_base, commit))
         popen.wait()
   return 0
 
