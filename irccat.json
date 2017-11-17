@@ -9,6 +9,11 @@
     "nick": "crfuchbot",
     "realname": "cr-fuchsia-bot",
     "identify_pass": "",
-    "channels": ["#cr-fuch-test"]
+    "channels": ["#cr-fuchsia"]
+  },
+  "commands": {
+    "auth_channel": "#cr-fuchsia",
+    "handler": "./nothing.sh",
+    "max_response_lines": 0
   }
 }
