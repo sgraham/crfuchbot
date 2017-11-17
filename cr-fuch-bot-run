@@ -8,7 +8,9 @@ echo `date` > last-run-started
 git fetch origin
 git checkout origin/master
 
+echo 'HERE!'
 python crfuchbot.py > last-output
+echo 'HERE2!'
 
 cd $DIR
 echo `date` > last-run-finished

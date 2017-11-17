@@ -16,13 +16,13 @@ def git(*args):
 
 def main():
   initial_dir = os.getcwd()
-  repo_root = 'repos'
+  all_repos_root = 'repos'
   separator = uuid.uuid4().hex
-  for repo in os.listdir(repo_root):
-    repo_root = os.path.join(initial_dir, repo_root, repo)
-    print repo_root
+  for repo in os.listdir(all_repos_root):
+    repo_root = os.path.join(initial_dir, all_repos_root, repo)
     if not os.path.isdir(repo_root):
       continue
+    print '----------', repo_root
     os.chdir(repo_root)
     update_filename = '../' + repo + '.lastupdate'
     with open(update_filename, 'r') as f:
@@ -55,8 +55,10 @@ def main():
                                  stdin=subprocess.PIPE)
         view_base = git('config', '--get', 'remote.origin.url')
         print 'sending to irc:', subject, author, view_base, commit
-        popen.communicate('%s %s %s/+/%s' % (subject, author, view_base, commit))
+        popen.communicate('%s %s %s/+/%s' %
+            (subject, author, view_base, commit))
         popen.wait()
+    os.chdir(initial_dir)
   return 0
 
 
