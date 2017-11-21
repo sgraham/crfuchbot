@@ -53,7 +53,7 @@ def main():
       if 'fuchsia' in data.lower():
         popen = subprocess.Popen(['nc', '127.0.0.1', '12345'],
                                  stdin=subprocess.PIPE)
-        view_base = git('config', '--get', 'remote.origin.url')
+        view_base = git('config', '--get', 'remote.origin.url').strip()
         print 'sending to irc:', subject, author, view_base, commit
         popen.communicate('%s %s %s/+/%s' %
             (subject, author, view_base, commit))
