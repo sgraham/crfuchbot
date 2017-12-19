@@ -30,8 +30,9 @@ def main():
     print git('fetch', 'origin'),
     print git('checkout', 'origin/master'),
     head_rev = git('rev-parse', 'HEAD').strip()
-    with open(update_filename, 'w') as f:
-      f.write(head_rev)
+    def commit_last_rev():
+      with open(update_filename, 'w') as f:
+        f.write(head_rev)
     output = git('log',
                 '--format=%(sep)s%%H%(sep)s%%ae%(sep)s%%s%(sep)s%%B' % {
                     'sep': separator},
@@ -39,6 +40,7 @@ def main():
                 last_rev + '..' + head_rev)
     print 'checking', last_rev, 'to', head_rev
     if not output:
+      commit_last_rev()
       continue
     if not output.startswith(separator):
       raise Exception('output should have started with separator')
@@ -59,6 +61,7 @@ def main():
         print 'sending to irc:', to_send
         popen.communicate(to_send + '\n')
         popen.wait()
+    commit_last_rev()
     os.chdir(initial_dir)
   return 0
 
