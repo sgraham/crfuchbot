@@ -52,15 +52,15 @@ def main():
       author = output[i+1]
       subject = output[i+2]
       data = output[i+3]
-      print 'CHECKING data=', data
+      #print 'CHECKING data=', data
       if 'fuchsia' in data.lower():
-        popen = subprocess.Popen(['nc', '127.0.0.1', '12345'],
+        popen = subprocess.Popen(['nc', '-q', '0', '127.0.0.1', '12345'],
                                  stdin=subprocess.PIPE)
         view_base = git('config', '--get', 'remote.origin.url').strip()
         to_send = '%s %s %s/+/%s' % (subject, author, view_base, commit)
         print 'sending to irc:', to_send
         popen.communicate(to_send + '\n')
-        popen.wait()
+        #popen.wait()
     commit_last_rev()
     os.chdir(initial_dir)
   return 0
